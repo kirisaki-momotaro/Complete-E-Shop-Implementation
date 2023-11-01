@@ -18,9 +18,9 @@ services:
     command: npm start
     restart: always
     ports:
-      - "${PRODUCT_PORT}:${PRODUCT_PORT}"
+      - "5000:5000"
     environment:
-      - PRODUCT_PORT=${PRODUCT_PORT}
+      - PORT=5000
     networks:
       - products
   order-service:
@@ -32,7 +32,7 @@ services:
     ports:
       - "${ORDER_PORT}:${ORDER_PORT}"
     environment:
-      - ORDER_PORT=${ORDER_PORT}
+      - PORT=${ORDER_PORT}
     networks:
       - products
 networks:
