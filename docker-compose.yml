@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
+    restart: always
+    ports:
+      - "8000:80"
+    networks:
+      - products
+
+  product-service:
+    build:
+      context: ./backend/product_service
+    container_name: product_service
+    command: npm start
+    restart: always
+    ports:
+      - "${PRODUCT_PORT}:${PRODUCT_PORT}"
+    environment:
+      - PRODUCT_PORT=${PRODUCT_PORT}
+    networks:
+      - products
+  order-service:
+    build:
+      context: ./backend/order_service
+    container_name: order_service
+    command: npm start
+    restart: always
+    ports:
+      - "${ORDER_PORT}:${ORDER_PORT}"
+    environment:
+      - ORDER_PORT=${ORDER_PORT}
+    networks:
+      - products
+networks:
+  products:
