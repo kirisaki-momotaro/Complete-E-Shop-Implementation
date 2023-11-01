@@ -30,9 +30,9 @@ services:
     command: npm start
     restart: always
     ports:
-      - "${ORDER_PORT}:${ORDER_PORT}"
+      - "5050:5050"
     environment:
-      - PORT=${ORDER_PORT}
+      - PORT=5050
     networks:
       - products
 networks:
