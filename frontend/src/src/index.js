@@ -57,6 +57,13 @@ async function Login(e){
             const token=login.access_token
 
             const decodeToken =await decodeJwt(token);
+            localStorage.setItem("username", decodeToken.preferred_username);
+            localStorage.setItem("email", decodeToken.email);
+            localStorage.setItem("refresh_token", decodeToken.azp);
+            //localStorage.getItem("username");
+            //localStorage.clearItem("email");
+            localStorage.clear();
+
             console.log(decodeToken)
             
         }else{
