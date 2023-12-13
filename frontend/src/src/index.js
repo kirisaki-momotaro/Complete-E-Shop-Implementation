@@ -15,13 +15,14 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+
 async function Register(e){
 
     e.preventDefault()
     const getUsername=document.getElementById('new-username').value;
     const getPassword=document.getElementById('new-password').value;
     const getEmail=document.getElementById('new-email').value;
-    const getRoles=document.getElementById('user-type').value;
+    const getRoles=document.getElementById('select-role').value;
 
 
     try{
@@ -45,11 +46,50 @@ async function Register(e){
         if (access_token.ok) {
             const admin_access_token=await access_token.json();
             const token=admin_access_token.access_token
-            console.log(token)
+            //console.log(token)
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append("Authorization", "Bearer "+token);
+
+            var raw = JSON.stringify({
+                "email": getEmail,
+                "enabled": "true",
+                "username": getUsername,
+                "attributes": {
+                    "client_id": "client-front"
+                },
+                "groups": [
+                    getRoles
+                ],
+                "credentials": [
+                    {
+                    "type": "password",
+                    "value": getPassword,
+                    "temporary": false
+                    }
+                ]
+            });
+
+            var registerOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+            };
+
+            const register_user=await fetch("http://localhost:8080/auth/admin/realms/hmmyzon/users", registerOptions)
+            if(register_user.ok){
+                alert("Registration successful");
+                const user = await register_user.json();
+                window.location.reload();
+            }else{
+                const err = await register_user.json();
+                console.log(err);
+            }
+                    
         }else{
             const err = await admin_access_token.json();
         }
-
 
 
     }catch(error) {
