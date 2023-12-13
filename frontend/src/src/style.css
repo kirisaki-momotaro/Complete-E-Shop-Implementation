@@ -17,6 +17,10 @@ main {
     padding: 20px;
 }
 
+.hidden {
+    display: none;
+}
+
 #store-image img {
     width: 100%;
     max-height: 400px;
