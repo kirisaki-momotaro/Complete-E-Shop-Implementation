@@ -9,7 +9,7 @@ app.use(express.static(page_path));
 app.use(express.static(login_path));
 
 // Define a route that responds with 'Hello, World!'
-app.get('/', (req, res) => {
+app.get('/products', (req, res) => {
 
   res.sendFile(page_path+'/products_main.html');
   

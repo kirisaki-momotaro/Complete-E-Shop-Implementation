@@ -60,6 +60,7 @@ async function Login(e){
             localStorage.setItem("username", decodeToken.preferred_username);
             localStorage.setItem("email", decodeToken.email);
             localStorage.setItem("refresh_token", decodeToken.azp);
+            window.location.href = "http://localhost:5101/products";
             //localStorage.getItem("username");
             //localStorage.clearItem("email");
             localStorage.clear();
