@@ -50,9 +50,9 @@ services:
     command: npm start
     restart: always
     ports:
-      - "5100:5100"
+      - "5101:5101"
     environment:
-      - PORT=5100
+      - PORT=5101
     networks:
       - products
   order-service:
@@ -69,3 +69,4 @@ services:
       - products
 networks:
   products:
+    driver: bridge
