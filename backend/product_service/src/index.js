@@ -1,10 +1,13 @@
 const express = require('express');
 const app = express();
-const port = 5000;
+const port = 5100;
+
+const path= require('path');
+const page_path =__dirname
 
 // Define a route that responds with 'Hello, World!'
 app.get('/', (req, res) => {
-  res.send('Hello, World!');
+  res.sendFile('${page_path}/products_main.html')
 });
 
 // Start the server
