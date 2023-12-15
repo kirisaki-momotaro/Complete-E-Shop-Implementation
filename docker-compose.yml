@@ -3,9 +3,6 @@ version: "3"
 volumes:
   postgres_data:
       driver: local
-  orders-db:
-  products-db:
-
 
 
 
@@ -45,49 +42,6 @@ services:
       - "8000:80"
     networks:
       - products
-  
-
-  products_db:
-    container_name: products_db
-    image: mysql
-    restart: always
-    command: --default-authentication-plugin=mysql_native_password
-    environment:
-      MYSQL_DATABASE: products_db
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: admin
-      MYSQL_ROOT_PASSWORD: admin
-    ports:
-      - '3310:3306'
-    expose:
-      # Opens port 3306 on the container
-      - '3310'
-      # Where our data will be persisted
-    volumes:
-      - ./data2/products-db:/var/lib/mysql
-
- 
-
-
-  orders_db: 
-    image: mysql
-    ports: 
-      - "3308:3306"
-    expose:
-      # Opens port 3306 on the container
-      - 3308
-    container_name: orders_db
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    environment:
-      MYSQL_DATABASE: order_db
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: admin
-      MYSQL_ROOT_PASSWORD: admin 
-    volumes:
-      - ./data2/orders-db:/var/lib/mysql   
-
-  
 
   product-service:
     build:
@@ -101,7 +55,6 @@ services:
       - PORT=5101
     networks:
       - products
-
   order-service:
     build:
       context: ./backend/order_service
@@ -114,8 +67,6 @@ services:
       - PORT=5050
     networks:
       - products
-
-
 networks:
   products:
     driver: bridge

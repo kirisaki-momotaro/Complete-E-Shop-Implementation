@@ -1,19 +1,23 @@
-// Sample user data for demonstration purposes
-const currentUser = {
-    username: "john_doe",
-    userType: "customer", // or "seller"
-};
+
+
+if(sessionStorage.getItem('username')==null){
+    alert("You must be logged in first"); 
+    window.location.href = "http://localhost:5101/login";
+
+}
 
 // Function to set the username in the user info section
 function setUserInfo() {
     const usernameDisplay = document.getElementById("username-display");
-    usernameDisplay.textContent = `Welcome, ${currentUser.username} (${currentUser.userType})`;
+    usernameDisplay.textContent = `Welcome, ${sessionStorage.getItem('username')} (${sessionStorage.getItem('refresh_token')})`;
 }
 
 // Function to handle logout
 function logout() {
     // Perform logout actions, e.g., clear session, redirect to login page, etc.
     alert("Logout successful!"); // Replace with actual logout logic
+    sessionStorage.clear();
+    window.location.href = "http://localhost:5101/login";
 }
 
 // Function to handle page change
