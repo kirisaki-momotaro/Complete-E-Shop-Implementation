@@ -57,13 +57,13 @@ async function Login(e){
             const token=login.access_token
 
             const decodeToken =await decodeJwt(token);
-            sessionStorage.setItem("username", decodeToken.preferred_username);
-            sessionStorage.setItem("email", decodeToken.email);
-            sessionStorage.setItem("refresh_token", decodeToken.azp);
+            localStorage.setItem("username", decodeToken.preferred_username);
+            localStorage.setItem("email", decodeToken.email);
+            localStorage.setItem("refresh_token", decodeToken.azp);
             window.location.href = "http://localhost:5101/products";
             //localStorage.getItem("username");
             //localStorage.clearItem("email");
-            //localStorage.clear();
+            localStorage.clear();
 
             console.log(decodeToken)
             
