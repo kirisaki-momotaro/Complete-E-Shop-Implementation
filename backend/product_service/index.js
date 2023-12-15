@@ -1,12 +1,24 @@
 const express = require('express');
-const app = express();
+const cors = require('cors');
 const port = 5101;
+
+const {connection} =require('./dbConnect')
+const app = express();
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+    
 
 const path= require('path');
 const page_path =path.join(__dirname,'/src');
 const login_path =path.join(__dirname,'/login');
 app.use(express.static(page_path));
 app.use(express.static(login_path));
+
+app.get("/health",(req, res) => {
+  res.send("ok");
+});
+
 
 // Define a route that responds with 'Hello, World!'
 app.get('/products', (req, res) => {
