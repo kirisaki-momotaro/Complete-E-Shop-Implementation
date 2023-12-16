@@ -1,4 +1,4 @@
-version: "3"
+version: "3.8"
 
 volumes:
   postgres_data:
@@ -57,7 +57,7 @@ services:
     networks:
       - products
     depends_on:
-      - products_db 
+      - products_db
  
 
   products_db:
@@ -78,10 +78,11 @@ services:
       # Where our data will be persisted
     volumes:
       - ./data2/products-db:/var/lib/mysql
-    extra_hosts:
-      - "host.docker.internal:172.17.0.1"
     networks:
       - products
+    extra_hosts:
+      - "host.docker.internal:172.17.1.10"
+
 
   order-service:
     build:
@@ -97,4 +98,4 @@ services:
       - products
 networks:
   products:
-    driver: bridge
+  
