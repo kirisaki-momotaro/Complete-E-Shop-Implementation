@@ -1,9 +1,12 @@
 // get the client
 const mysql = require('mysql2/promise');
 
-
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  
 const connect = async () => {
-
+    await sleep(10000);
     try {
         // create the connection to database
         const connection = await mysql.createConnection({
