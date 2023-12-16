@@ -59,7 +59,7 @@ services:
     depends_on:
       - products_db
  
-
+ 
   products_db:
     container_name: products_db
     image: mysql
@@ -83,8 +83,6 @@ services:
     extra_hosts:
       - "host.docker.internal:172.17.0.1"
 
-
-
   order-service:
     build:
       context: ./backend/order_service
@@ -96,7 +94,34 @@ services:
     environment:
       - PORT=5050
     networks:
-      - products
+      - orders
+    depends_on:
+      - orders_db
+  
+  orders_db: 
+    image: mysql
+    ports: 
+      - "3308:3306"
+    expose:
+      # Opens port 3306 on the container
+      - 3308
+    container_name: orders_db
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_DATABASE: order_db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_ROOT_PASSWORD: admin 
+    volumes:
+      - ./data2/orders-db:/var/lib/mysql   
+    networks:
+      - orders
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
+  
+
 networks:
   products:
+  orders:
   
