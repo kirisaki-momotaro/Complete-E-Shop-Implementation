@@ -9,7 +9,7 @@ const connect = async () => {
         const connection = await mysql.createConnection({
         //host: 'localhost',//when using docker put continer_name instead of localhost
         //host: 'products_db',
-        host: '172.17.1.10',
+        host: '172.17.0.1',
         port: 3310,
         user: 'admin',
         password: 'admin',
