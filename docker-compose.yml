@@ -56,6 +56,8 @@ services:
       - PORT=5101
     networks:
       - products
+    depends_on:
+      - products_db 
  
 
   products_db:
@@ -76,6 +78,10 @@ services:
       # Where our data will be persisted
     volumes:
       - ./data2/products-db:/var/lib/mysql
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
+    networks:
+      - products
 
   order-service:
     build:
