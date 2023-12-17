@@ -27,6 +27,21 @@ app.get('/products', (req, res) => {
   
 });
 
+app.get('/products_all',async (req, res) => {
+
+  try {
+    //get db
+    const db = await connection;
+    const results = await db.execute("SELECT * FROM products");
+    res.send(results[0]);
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+  
+});
+
+
 app.post('/products',async (req, res) => {
   const data = req.body;
   //console.log(data);

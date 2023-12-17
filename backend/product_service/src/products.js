@@ -1,10 +1,45 @@
 
 
-if(sessionStorage.getItem('username')==null){
-    alert("You must be logged in first"); 
-    window.location.href = "http://localhost:5101/login";
 
-}
+//when browser load run the fetch
+window.addEventListener("load", async () => {
+
+    if(sessionStorage.getItem('username')==null){
+        alert("You must be logged in first"); 
+        window.location.href = "http://localhost:5101/login";
+    
+    }
+    try {
+     
+      const response = await fetch("http://localhost:5101/products_all", {
+        method: "GET", // *GET, POST, PUT, DELETE, etc.
+      });
+  
+      //communicate with server happens succesfully
+      if (response.ok) {
+        const products = await response.json();
+  
+      
+        const productsDiv = document.getElementById("product-display");
+  
+        products.forEach((data) => {
+          console.log(data.img);
+          const context = `
+          <div class="product">
+            <p>${data.title}</p>           
+            <p>${data.quantity}</p>
+            <p>${data.price}</p>
+            <p>${data.username}</p>
+          </div>
+          `;
+          productsDiv.innerHTML += context;
+        });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  });
+
 
 // Function to set the username in the user info section
 function setUserInfo() {
@@ -29,3 +64,4 @@ function changePage() {
 
 // Call the setUserInfo function to display the current user's information
 setUserInfo();
+showProducts();
