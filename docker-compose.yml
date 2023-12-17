@@ -34,15 +34,6 @@ services:
         - 8080:8080
       depends_on:
         - postgres
-  frontend:
-    build:
-      context: ./frontend
-    container_name: frontend
-    restart: always
-    ports:
-      - "8000:80"
-    networks:
-      - products
 
   product-service:
     build:
