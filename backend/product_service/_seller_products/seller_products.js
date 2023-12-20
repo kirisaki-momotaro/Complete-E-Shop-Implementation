@@ -40,7 +40,7 @@ window.addEventListener("load", async () => {
             <p>${data.quantity}</p>
             <p>${data.price}</p>
             <p>${data.username}</p>
-            <button class="delete-button" onclick="deleteProduct(${index})">Delete</button>
+            <button class="delete-button" onclick="deleteProduct(${data.id})">Delete</button>
             <button class="edit-button" onclick="editProduct(${index}, '${data.title}', ${data.quantity}, ${data.price}, '${data.username}')">Edit</button>
           </div>
           `;   
@@ -74,12 +74,94 @@ function logout() {
 function addNewProduct(){
   window.location.href = "http://localhost:5101/new_product";
 }
+async function deleteProduct(product_id){
+  try {
+    var requestOptions = {
+      method: 'DELETE',
+      redirect: 'follow'
+    };
+    
+    const response=await fetch("http://localhost:5101/products/"+product_id, requestOptions)
+    if (response.ok){
+      alert("Product deleted successfully");
 
+    }else{
+      const err = await response.json();
+      console.log(err);
+
+    }
+  } catch (e) {
+    console.log(e);
+    
+  }
+
+}
 // Function to handle page change
 function changePage() {
     const selectedPage = document.getElementById("pages").value;
     // Add logic to handle page change, e.g., load content for the selected page
     alert(`Navigating to ${selectedPage} page...`); // Replace with actual page navigation logic
+}
+
+
+async function deleteProduct(product_id) {
+  try {
+    var requestOptions = {
+      method: 'DELETE',
+      redirect: 'follow'
+    };
+    
+    const response = await fetch(`http://localhost:5101/products/${product_id}`, requestOptions);
+    
+    if (response.ok) {
+      //alert("Product deleted successfully");
+      refreshProducts()
+      
+      // Refresh the product display after successful deletion
+      showProducts();
+    } else {
+      const err = await response.json();
+      console.log(err);
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+// Function to fetch and display products
+async function refreshProducts() {
+  try {
+    const response = await fetch(`http://localhost:5101/products/${sessionStorage.getItem('username')}`, {
+      method: "GET",
+    });
+
+    if (response.ok) {
+      const products = await response.json();
+      const productsDiv = document.getElementById("product-display");
+      
+      // Clear existing content
+      productsDiv.innerHTML = '';
+
+      products.forEach((data, index) => {
+        const context = `
+          <div class="product">
+            <p>${data.title}</p>           
+            <p>${data.quantity}</p>
+            <p>${data.price}</p>
+            <p>${data.username}</p>
+            <button class="delete-button" onclick="deleteProduct(${data.id})">Delete</button>
+            <button class="edit-button" onclick="editProduct(${index}, '${data.title}', ${data.quantity}, ${data.price}, '${data.username}')">Edit</button>
+          </div>
+        `;   
+        productsDiv.innerHTML += context;
+      });
+    } else {
+      const err = await response.json();
+      console.log(err);
+    }
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 // Call the setUserInfo function to display the current user's information

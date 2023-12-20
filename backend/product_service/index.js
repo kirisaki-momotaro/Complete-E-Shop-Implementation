@@ -53,6 +53,19 @@ app.get('/products_all',async (req, res) => {
   
 });
 
+app.delete('/products/:productId', async (req, res) => {
+  const productId = req.params.productId;
+
+  try {
+    const db = await connection;
+    const result = await db.execute(`DELETE FROM products WHERE id = ?`, [productId]);
+    res.send(result);
+    
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(error.message);
+  }
+});
 
 app.get("/products/:username", async (req, res) => {
   try {
