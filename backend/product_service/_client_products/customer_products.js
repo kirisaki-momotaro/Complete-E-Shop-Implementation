@@ -14,7 +14,7 @@ window.addEventListener("load", async () => {
     
     }
     if(sessionStorage.getItem('role')!="customer"){
-      alert("You must be a customer to access this page"); 
+      alert("You must be a client to access this page"); 
       sessionStorage.clear();
       window.location.href = "http://localhost:5101/login";
 
