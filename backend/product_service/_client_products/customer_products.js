@@ -1,9 +1,9 @@
-function addToCart(index, title, quantity, price, username) {
+function addToCart(id, title, quantity, price) {
     // Example: Add the selected product to the cart (replace this with your actual logic)
     console.log(`Added to cart (index ${index}): ${title}`);
     console.log(`Quantity: ${quantity}`);
     console.log(`Price: ${price}`);
-    console.log(`Username: ${username}`);
+
   }
 //when browser load run the fetch
 window.addEventListener("load", async () => {
@@ -40,7 +40,7 @@ window.addEventListener("load", async () => {
             <p>${data.quantity}</p>
             <p>${data.price}</p>
             <p>${data.username}</p>
-            <button class="add-to-cart-button" onclick="addToCart(${index}, '${data.title}', ${data.quantity}, ${data.price}, '${data.username}')">Add to Cart</button>
+            <button class="add-to-cart-button" onclick="addToCart(${index}, '${data.title}', ${data.quantity}, ${data.price})">Add to Cart</button>
           </div>
           `;   
           productsDiv.innerHTML += context;
