@@ -13,8 +13,8 @@ window.addEventListener("load", async () => {
         window.location.href = "http://localhost:5101/login";
     
     }
-    if(sessionStorage.getItem('refresh_token')!="client-front"){
-      alert("You must be a client to access this page"); 
+    if(sessionStorage.getItem('role')!="customer"){
+      alert("You must be a customer to access this page"); 
       sessionStorage.clear();
       window.location.href = "http://localhost:5101/login";
 
@@ -56,7 +56,7 @@ window.addEventListener("load", async () => {
 // Function to set the username in the user info section
 function setUserInfo() {
     const usernameDisplay = document.getElementById("username-display");
-    usernameDisplay.textContent = `Welcome, ${sessionStorage.getItem('username')} (${sessionStorage.getItem('refresh_token')})`;
+    usernameDisplay.textContent = `Welcome, ${sessionStorage.getItem('username')} (${sessionStorage.getItem('role')})`;
 }
 
 // Function to handle logout
