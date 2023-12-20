@@ -47,6 +47,24 @@ app.get('/products_all',async (req, res) => {
 });
 
 
+app.get("/products/:username", async (req, res) => {
+  try {
+    const username = req.params.username;
+    //get db
+    const db = await connection;
+
+    const results = await db.query("SELECT * FROM products WHERE `username` = ?", [
+      username,
+    ]);
+    res.send(results[0]);
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
+
 app.post('/products',async (req, res) => {
   const data = req.body;
   //console.log(data);

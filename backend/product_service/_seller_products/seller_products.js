@@ -21,7 +21,7 @@ window.addEventListener("load", async () => {
     }
     try {
      
-      const response = await fetch("http://localhost:5101/products_all", {
+      const response = await fetch("http://localhost:5101/products/"+sessionStorage.getItem('username'), {
         method: "GET", // *GET, POST, PUT, DELETE, etc.
       });
   
@@ -40,7 +40,8 @@ window.addEventListener("load", async () => {
             <p>${data.quantity}</p>
             <p>${data.price}</p>
             <p>${data.username}</p>
-            <button class="add-to-cart-button" onclick="addToCart(${index}, '${data.title}', ${data.quantity}, ${data.price}, '${data.username}')">Add to Cart</button>
+            <button class="delete-button" onclick="deleteProduct(${index})">Delete</button>
+            <button class="edit-button" onclick="editProduct(${index}, '${data.title}', ${data.quantity}, ${data.price}, '${data.username}')">Edit</button>
           </div>
           `;   
           productsDiv.innerHTML += context;
