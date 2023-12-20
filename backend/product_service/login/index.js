@@ -60,7 +60,12 @@ async function Login(e){
             sessionStorage.setItem("username", decodeToken.preferred_username);
             sessionStorage.setItem("email", decodeToken.email);
             sessionStorage.setItem("refresh_token", decodeToken.azp);
-            window.location.href = "http://localhost:5101/products";
+            if(sessionStorage.getItem("refresh_token")=="client-front"){
+                window.location.href = "http://localhost:5101/products_client";
+            }else{
+                window.location.href = "http://localhost:5101/products_seller";
+            }
+            
             //localStorage.getItem("username");
             //localStorage.clearItem("email");
             //localStorage.clear();

@@ -10,9 +10,11 @@ app.use(express.urlencoded({extended:true}));
     
 
 const path= require('path');
-const page_path =path.join(__dirname,'/src');
+const client_page_path =path.join(__dirname,'/_client_products');
+const seller_page_path =path.join(__dirname,'/_seller_products');
 const login_path =path.join(__dirname,'/login');
-app.use(express.static(page_path));
+app.use(express.static(client_page_path));
+app.use(express.static(seller_page_path));
 app.use(express.static(login_path));
 
 app.get("/health",(req, res) => {
@@ -21,11 +23,14 @@ app.get("/health",(req, res) => {
 
 
 // Define a route that responds with 'Hello, World!'
-app.get('/products', (req, res) => {
-
-  res.sendFile(page_path+'/products_main.html');
-  
+app.get('/products_client', (req, res) => {  
+  res.sendFile(client_page_path+'/products_main.html'); 
 });
+
+app.get('/products_seller', (req, res) => {  
+res.sendFile(seller_page_path+'/products_main.html'); 
+});
+
 
 app.get('/products_all',async (req, res) => {
 
