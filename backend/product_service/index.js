@@ -12,9 +12,11 @@ app.use(express.urlencoded({extended:true}));
 const path= require('path');
 const client_page_path =path.join(__dirname,'/_client_products');
 const seller_page_path =path.join(__dirname,'/_seller_products');
+
 const login_path =path.join(__dirname,'/login');
 app.use(express.static(client_page_path));
 app.use(express.static(seller_page_path));
+
 app.use(express.static(login_path));
 
 app.get("/health",(req, res) => {
@@ -30,6 +32,11 @@ app.get('/products_client', (req, res) => {
 app.get('/products_seller', (req, res) => {  
 res.sendFile(seller_page_path+'/seller_products_main.html'); 
 });
+
+app.get('/new_product', (req, res) => {  
+  res.sendFile(seller_page_path+'/create_product_page.html'); 
+  });
+  
 
 
 app.get('/products_all',async (req, res) => {

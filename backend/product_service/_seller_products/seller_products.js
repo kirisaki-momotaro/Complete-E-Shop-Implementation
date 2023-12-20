@@ -46,7 +46,10 @@ window.addEventListener("load", async () => {
           `;   
           productsDiv.innerHTML += context;
         });
-      }
+      }else{
+        const err = await response.json();
+        console.log(err);
+    }
     } catch (e) {
       console.log(e);
     }
@@ -66,6 +69,10 @@ function logout() {
     alert("Logout successful!"); // Replace with actual logout logic
     sessionStorage.clear();
     window.location.href = "http://localhost:5101/login";
+}
+
+function addNewProduct(){
+  window.location.href = "http://localhost:5101/new_product";
 }
 
 // Function to handle page change
