@@ -57,10 +57,18 @@ async function Login(e){
             const token=login.access_token
 
             const decodeToken =await decodeJwt(token);
+            
             sessionStorage.setItem("username", decodeToken.preferred_username);
             sessionStorage.setItem("email", decodeToken.email);
             sessionStorage.setItem("refresh_token", decodeToken.azp);
-            if(sessionStorage.getItem("refresh_token")=="client-front"){
+            
+            if(decodeToken.realm_access.roles[3]=='customer'){
+                sessionStorage.setItem("role", decodeToken.realm_access.roles[3]);
+            }else{
+                sessionStorage.setItem("role", decodeToken.realm_access.roles[0]);
+            }
+            
+            if(sessionStorage.getItem("role")=="customer"){
                 window.location.href = "http://localhost:5101/products_client";
             }else{
                 window.location.href = "http://localhost:5101/products_seller";
@@ -124,6 +132,7 @@ async function Register(e){
                 "username": getUsername,
                 "attributes": {
                     "client_id": "client-front"
+                    
                 },
                 "groups": [
                     getRoles
