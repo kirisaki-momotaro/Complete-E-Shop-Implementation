@@ -55,7 +55,7 @@ window.addEventListener("load", async () => {
             <p>${data.quantity}</p>
             <p>${data.price}</p>
             <p>${data.username}</p>
-            <button class="add-to-cart-button" onclick="addToCart(${index}, '${data.title}', ${data.price})">Add to Cart</button>
+            <button class="add-to-cart-button" onclick="addToCart(${data.id}, '${data.title}', ${data.price})">Add to Cart</button>
           </div>
           `;   
           productsDiv.innerHTML += context;
@@ -66,7 +66,43 @@ window.addEventListener("load", async () => {
     }
   });
 
+  async function searchProducts() {   
+    const searchTerm = document.getElementById("search-bar").value.toLowerCase();    
+    try {
+      var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+      };
+      
+      const response=await fetch("http://localhost:5101/search/"+searchTerm, requestOptions)
+      if (response.ok) {    
+        
+        const products = await response.json();     
+        const productsDiv = document.getElementById("product-display");
+        productsDiv.innerHTML = '';         
+        products.forEach((data,index) => {
+          console.log(data.img);
+          const context = `
+          <div class="product">
+            <p>${data.title}</p>           
+            <p>${data.quantity}</p>
+            <p>${data.price}</p>
+            <p>${data.username}</p>
+            <button class="add-to-cart-button" onclick="addToCart(${data.id}, '${data.title}', ${data.price})">Add to Cart</button>
+          </div>
+          `;   
+          productsDiv.innerHTML += context;
+        });
+      }else{
+          const err = await response.json();
+          console.log(err);
+      }
 
+    } catch (e) {
+      console.log(e);
+    }
+    
+  }
 
 // Function to set the username in the user info section
 function setUserInfo() {

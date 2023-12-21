@@ -107,6 +107,26 @@ app.get("/products/:username", async (req, res) => {
   }
 });
 
+app.get("/search/:searchTerm", async (req, res) => {
+  try {
+    const searchTerm = req.params.searchTerm;
+    //get db
+    const db = await connection;
+    const query = `
+      SELECT *
+      FROM products
+      WHERE title LIKE ? OR username LIKE ?
+    `;
+    const values = [`%${searchTerm}%`, `%${searchTerm}%`];
+
+    const results = await db.query(query, values);
+    res.send(results[0]);
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 
 
 app.post('/products',async (req, res) => {
