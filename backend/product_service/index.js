@@ -43,7 +43,25 @@ app.get('/new_product', (req, res) => {
   app.get('/edit_product', (req, res) => {  
     res.sendFile(seller_page_path+'/edit_product.html'); 
     });
-    
+  
+    app.put('/edit_product/:productId', async (req, res) => {
+      const productId = req.params.productId;
+      const { title, price, quantity } = req.body;
+
+      
+      try {
+        const db = await connection;
+        const results = await db.execute(`UPDATE products SET title = ?, price = ?,quantity = ? WHERE id = ?`,[title, price, quantity, productId]);     
+        res.send(results[0]);
+
+        
+      } catch (error) {
+        console.error("Error updating product:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+      }
+      
+
+  });
 
 app.get('/products_all',async (req, res) => {
 

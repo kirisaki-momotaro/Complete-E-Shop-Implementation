@@ -10,18 +10,47 @@ function fillFormWithProductDetails() {
 }
 
 // Add JavaScript functions for updating product
-function updateProduct() {
+async function updateProduct() {
     // Fetch values from the form
+    const product_to_change = JSON.parse(sessionStorage.getItem('product_to_change')) || {};
+    
     var title = document.getElementById("title").value;
     var price = document.getElementById("price").value;
     var quantity = document.getElementById("quantity").value;
 
-    // Perform the update operation (you may want to use AJAX to send this data to the server)
-    // For demonstration purposes, we'll log the values to the console
-    console.log("Updating Product: ", { title, price, quantity });
+    try {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+        
+        var urlencoded = new URLSearchParams();
+        urlencoded.append("title",title);
+        urlencoded.append("price", price);
+        urlencoded.append("quantity",quantity);
+        
+        var requestOptions = {
+          method: 'PUT',
+          headers: myHeaders,
+          body: urlencoded,
+          redirect: 'follow'
+        };
+        
+    
 
-    // Redirect back to the products page or perform other actions as needed
-    // window.location.href = "products.html";
+          const response = await fetch("http://localhost:5101/edit_product/"+product_to_change.id, requestOptions)
+    
+        if (response.ok) {
+            alert("Product Edited Successfully");
+
+        } else {
+        const err = await response.json();
+        console.log(err);
+        }
+  } catch (e) {
+    console.log(e);
+  }
+     
+
+
 }
 function cancel(){
     window.location.href = "http://localhost:5101/products_seller";

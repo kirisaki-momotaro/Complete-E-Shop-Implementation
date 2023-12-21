@@ -41,7 +41,7 @@ window.addEventListener("load", async () => {
             <p>${data.price}</p>
             <p>${data.username}</p>
             <button class="delete-button" onclick="deleteProduct(${data.id})">Delete</button>
-            <button class="edit-button" onclick="editProduct(${index}, '${data.title}', ${data.quantity}, ${data.price}, '${data.username}')">Edit</button>
+            <button class="edit-button" onclick="editProduct(${data.id}, '${data.title}', ${data.quantity}, ${data.price}, '${data.username}')">Edit</button>
           </div>
           `;   
           productsDiv.innerHTML += context;
@@ -164,6 +164,7 @@ async function refreshProducts() {
   }
 }
 function editProduct(id, title, quantity, price) {
+  console.log(id);
   var product_to_change = {
     id:id,
     title:title,
