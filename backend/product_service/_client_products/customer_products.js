@@ -1,8 +1,23 @@
-function addToCart(id, title, quantity, price) {
-    // Example: Add the selected product to the cart (replace this with your actual logic)
-    console.log(`Added to cart (index ${index}): ${title}`);
-    console.log(`Quantity: ${quantity}`);
-    console.log(`Price: ${price}`);
+function getProductsFromSessionStorage() {  
+  var productsJson = sessionStorage.getItem('products');
+  return JSON.parse(productsJson) || {};
+}
+function addToCart(id, title, price) {   
+  
+  var products = getProductsFromSessionStorage();
+
+    if (products.hasOwnProperty(id)) { 
+      products[id].quantity += 1;
+      products[id].price += price;
+    } else { 
+      products[id] = {
+        title:title,
+        quantity: 1,
+        price: price
+      };
+    }
+    var productsJson = JSON.stringify(products);
+    sessionStorage.setItem('products', productsJson);
 
   }
 //when browser load run the fetch
@@ -40,7 +55,7 @@ window.addEventListener("load", async () => {
             <p>${data.quantity}</p>
             <p>${data.price}</p>
             <p>${data.username}</p>
-            <button class="add-to-cart-button" onclick="addToCart(${index}, '${data.title}', ${data.quantity}, ${data.price})">Add to Cart</button>
+            <button class="add-to-cart-button" onclick="addToCart(${index}, '${data.title}', ${data.price})">Add to Cart</button>
           </div>
           `;   
           productsDiv.innerHTML += context;
@@ -58,7 +73,9 @@ function setUserInfo() {
     const usernameDisplay = document.getElementById("username-display");
     usernameDisplay.textContent = `Welcome, ${sessionStorage.getItem('username')} (${sessionStorage.getItem('role')})`;
 }
-
+function viewCart() {
+  window.location.href = "http://localhost:5101/cart";
+}
 // Function to handle logout
 function logout() {
     // Perform logout actions, e.g., clear session, redirect to login page, etc.

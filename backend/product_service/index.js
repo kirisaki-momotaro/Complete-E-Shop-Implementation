@@ -28,6 +28,9 @@ app.get("/health",(req, res) => {
 app.get('/products_client', (req, res) => {  
   res.sendFile(client_page_path+'/customer_products_main.html'); 
 });
+app.get('/cart', (req, res) => {  
+  res.sendFile(client_page_path+'/cart_page.html'); 
+});
 
 app.get('/products_seller', (req, res) => {  
 res.sendFile(seller_page_path+'/seller_products_main.html'); 
