@@ -40,7 +40,10 @@ app.get('/new_product', (req, res) => {
   res.sendFile(seller_page_path+'/create_product_page.html'); 
   });
   
-
+  app.get('/edit_product', (req, res) => {  
+    res.sendFile(seller_page_path+'/edit_product.html'); 
+    });
+    
 
 app.get('/products_all',async (req, res) => {
 

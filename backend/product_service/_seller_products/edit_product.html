@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>HMMYzon Edit Product</title>
+</head>
+
+<body>
+    <header>     
+        <h1>Edit Product</h1>
+    </header>
+    <main>
+        <form id="edit-product-form" onsubmit="updateProduct(); return false;">
+            <label for="title">Title:</label>
+            <input type="text" id="title" required>
+            
+            <label for="price">Price:</label>
+            <input type="number" id="price" step="0.01" required>
+            
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" required>
+            
+            <button type="submit">Update Product</button>
+        </form>
+        <button onclick="cancel()">Cancel</button>    
+    </main>
+    <footer>
+        <p>&copy; christos ioannidis 2018030006, 2023 HMMYzon the COMEBACK Project</p>
+    </footer>
+ 
+    
+    <script src="edit_product.js"></script>
+</body>
+
+</html>

@@ -150,7 +150,7 @@ async function refreshProducts() {
             <p>${data.price}</p>
             <p>${data.username}</p>
             <button class="delete-button" onclick="deleteProduct(${data.id})">Delete</button>
-            <button class="edit-button" onclick="editProduct(${index}, '${data.title}', ${data.quantity}, ${data.price}, '${data.username}')">Edit</button>
+            <button class="edit-button" onclick="editProduct(${data.id}, '${data.title}', ${data.quantity}, ${data.price})">Edit</button>
           </div>
         `;   
         productsDiv.innerHTML += context;
@@ -163,6 +163,20 @@ async function refreshProducts() {
     console.log(e);
   }
 }
+function editProduct(id, title, quantity, price) {
+  var product_to_change = {
+    id:id,
+    title:title,
+    quantity: quantity,
+    price: price
+  };
+  var product_to_changeJson = JSON.stringify(product_to_change);
+  sessionStorage.setItem('product_to_change', product_to_changeJson);
+  window.location.href = "http://localhost:5101/edit_product";
+}
+
+
+
 
 // Call the setUserInfo function to display the current user's information
 setUserInfo();
