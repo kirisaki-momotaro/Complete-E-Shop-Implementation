@@ -26,8 +26,8 @@ services:
         DB_USER: keycloak
         DB_SCHEMA: public
         DB_PASSWORD: password
-        KEYCLOAK_USER: admin
-        KEYCLOAK_PASSWORD: Pa55w0rd
+        #KEYCLOAK_USER: admin
+        #KEYCLOAK_PASSWORD: Pa55w0rd
         # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
         #JDBC_PARAMS: "ssl=true"
       ports:
@@ -68,7 +68,7 @@ services:
       - '3310'
       # Where our data will be persisted
     volumes:
-      - ./data1/products-db:/var/lib/mysql
+      - ./db_data/products-db:/var/lib/mysql
     networks:
       - products
     extra_hosts:
@@ -105,7 +105,7 @@ services:
       MYSQL_PASSWORD: admin
       MYSQL_ROOT_PASSWORD: admin 
     volumes:
-      - ./data1/orders-db:/var/lib/mysql   
+      - ./db_data/orders-db:/var/lib/mysql   
     networks:
       - orders
     extra_hosts:
