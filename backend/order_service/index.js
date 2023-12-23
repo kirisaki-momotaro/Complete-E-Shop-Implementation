@@ -16,6 +16,31 @@ app.get("/health",(req, res) => {
   res.send("im fine i guess");
 });
 
+app.get("/orders", async (req, res) => {
+  try {
+    //get db
+    const db = await connection;
+
+    const results = await db.execute("SELECT * FROM orders");
+    res.send(results[0]);
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+app.get("/orders/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    //get db
+    const db = await connection;
+
+    const results = await db.query("SELECT * FROM orders WHERE `id` = ?", [id]);
+    res.send(results[0][0]);
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 //create an order
 app.post("/orders", async (req, res) => {
   const order = req.body;
