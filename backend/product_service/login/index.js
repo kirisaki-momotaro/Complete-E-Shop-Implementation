@@ -40,7 +40,7 @@ async function Login(e){
         urlencoded.append("username", login_username);
         urlencoded.append("password", login_password);
         urlencoded.append("client_id", "client-front");
-        urlencoded.append("client_secret", "XC5qe0WjNIh9XIT0UwU4urbSmcBKo8ft");
+        urlencoded.append("client_secret", "BlJJqPSwExWV36yUFxjNoRkiW95JnlRg");
         urlencoded.append("grant_type", "password");
 
         var requestOptions = {
@@ -107,7 +107,7 @@ async function Register(e){
         var urlencoded = new URLSearchParams();
         urlencoded.append("grant_type", "client_credentials");
         urlencoded.append("client_id", "admin-cli");
-        urlencoded.append("client_secret", "ZF7wItADWdPcq22kT1L0s4R2Fn8D3D87");
+        urlencoded.append("client_secret", "yAE56YCPNKU2YWmE0MpnCr616Hb0ukee");
 
         var requestOptions = {
         method: 'POST',
