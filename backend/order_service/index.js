@@ -41,6 +41,7 @@ app.get("/orders/:id", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+const kafka = require("./kafka");
 //create an order
 app.post("/orders", async (req, res) => {
   const order = req.body;
@@ -54,13 +55,13 @@ app.post("/orders", async (req, res) => {
       [order.products, order.status, order.total_price]
     );
 
-    /*send to kafka
+    //send to kafka
       const msg = {
         id: results[0].insertId,
         products: order.products
       }
 
-      await kafka.kafkaProducer(msg)*/
+      await kafka.kafkaProducer(msg)
 
     res.send(results);
   } catch (e) {
