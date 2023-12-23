@@ -2,7 +2,7 @@ const { Kafka, Partitioners } = require('kafkajs')
 
 const kafka = new Kafka({
   clientId: 'order-app',
-  brokers: ['kafka:8097'],
+  brokers: ['localhost:8097'],
   retry: {
     initialRetryTime: 2000,
     retries: 5

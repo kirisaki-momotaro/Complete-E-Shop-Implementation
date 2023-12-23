@@ -44,9 +44,6 @@ services:
         interval: 30s
         timeout: 10s
         retries: 5
-    extra_hosts:
-      - "host.docker.internal:172.17.0.3"
-  
 
   control-center:
       image: confluentinc/cp-enterprise-control-center:latest
@@ -65,7 +62,6 @@ services:
       networks:
       - orders
       restart: always
-
 
 
   postgres:
@@ -147,6 +143,7 @@ services:
       - orders
     depends_on:
       - orders_db
+      - kafka
   
   orders_db: 
     image: mysql
@@ -176,4 +173,5 @@ networks:
       driver: bridge
   products:
   orders:
+      driver: bridge
   
