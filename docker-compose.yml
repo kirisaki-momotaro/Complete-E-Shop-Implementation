@@ -15,7 +15,7 @@ services:
       environment:
         ZOOKEEPER_CLIENT_PORT: 2181
       networks:
-      - default
+      - orders
 
   kafka:
     image: confluentinc/cp-kafka:7.2.1
@@ -37,13 +37,16 @@ services:
       KAFKA_JMX_PORT: 9101
       KAFKA_JMX_HOSTNAME: localhost
     networks:
-     - default
+     - orders
     restart: on-failure
     healthcheck:
         test: ["CMD", "ping", "-c","1", "localhost:8097"]
         interval: 30s
         timeout: 10s
         retries: 5
+    extra_hosts:
+      - "host.docker.internal:172.17.0.3"
+  
 
   control-center:
       image: confluentinc/cp-enterprise-control-center:latest
@@ -60,8 +63,9 @@ services:
         CONTROL_CENTER_REPLICATION_FACTOR: 1
         PORT: 9021
       networks:
-      - default
+      - orders
       restart: always
+
 
 
   postgres:
@@ -168,6 +172,8 @@ services:
   
 
 networks:
+  default:
+      driver: bridge
   products:
   orders:
   
