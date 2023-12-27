@@ -1,28 +1,41 @@
-//check if amount of products is correct
-//update database to substruct the amount of products sold
-const {connection} = require('./dbConnect')
+//update database for products amount
+const { connection } = require('./dbConnect')
 
-const handleProducts = async(order) => {
+const handleProducts = async (orders)=>{
     try {
         const db = await connection;
-        for await (const product of order.products){
-            const productID = product.id;
-            const amount=product.amount;
-            const data = await db.execute("SELECT * FROM products WHERE id = ?", [productID]);
 
-            
-            const productInfo = data[0];
-            const quantity = productInfo.quantity;
+        //check if products amount is > 0
+        console.log(orders);
+        for await (const obj of orders.products){
+            console.log(obj)
+            const productID=obj.id;
+            const data = await db.query("SELECT * FROM products WHERE `id`=?",
+                                        [productID])
+
+            const quantity = data[0][0].quantity
             console.log(quantity)
-
+            if((quantity -obj.amount)<0){
+                console.log("not enough supply")
+                return false
+            }
         }
 
-        //procces the products
+        for await (const obj of orders.products){
+            const data = await db.query("SELECT * FROM products WHERE `id`=?",
+                                        [obj.id])
+
+            const newQuantity = data[0][0].quantity - obj.amount
+            const update = await db.execute("UPDATE products SET quantity = ? WHERE id = ?",
+            [newQuantity, obj.id])
+        }
+
+        return true
+
     } catch (error) {
         console.log(error.message)
         throw new Error(error)
-        
     }
 }
 
-module.exports ={handleProducts}
+module.exports = { handleProducts }
