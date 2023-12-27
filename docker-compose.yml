@@ -39,6 +39,7 @@ services:
       KAFKA_JMX_HOSTNAME: localhost
     networks:
      - orders
+     - products
     restart: on-failure
     healthcheck:
         test: ["CMD", "ping", "-c","1", "localhost:8097"]

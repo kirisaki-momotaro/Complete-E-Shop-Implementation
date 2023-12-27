@@ -30,3 +30,30 @@ const consumer = kafka.consumer({
     groupId: "products_group",
     allowAutoTopicCreation: true,
 })
+
+const fetchProductsFromOrderTopic = async()=>{
+  try {
+    await consumer.connect()
+    await consumer.subscribe({topics:["ordersProducer"]})
+
+    await consumer.run({
+      eachMessage: async({message}) => {
+        const jsonMsg = JSON.parse(message)
+        console.log(jsonMsg)
+      }
+    })
+  } catch (error) {
+    await consumer.disconnect()
+    console.log(error.message)
+    
+  }
+}
+
+setTimeout(async()=>{
+  try {
+    await fetchProductsFromOrderTopic()
+  } catch (error) {
+    console.log(error.message)
+  }
+
+},30000)

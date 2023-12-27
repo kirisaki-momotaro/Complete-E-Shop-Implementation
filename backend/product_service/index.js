@@ -1,3 +1,4 @@
+const kafka = require('./kafka');
 const express = require('express');
 const cors = require('cors');
 const port = 5101;
