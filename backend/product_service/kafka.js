@@ -1,4 +1,5 @@
 const { Kafka, Partitioners } = require('kafkajs')
+const { handleProducts } = require('./services')
 
 const kafka = new Kafka({
   clientId: 'products-app',
@@ -40,6 +41,7 @@ const fetchProductsFromOrderTopic = async()=>{
       eachMessage: async({message}) => {
         const jsonMsg = JSON.parse(message.value)
         console.log(jsonMsg)
+        const resuly = await handleProducts(jsonMsg)
       }
     })
   } catch (error) {
