@@ -38,7 +38,7 @@ const fetchProductsFromOrderTopic = async()=>{
 
     await consumer.run({
       eachMessage: async({message}) => {
-        const jsonMsg = JSON.parse(message)
+        const jsonMsg = JSON.parse(message.value)
         console.log(jsonMsg)
       }
     })
