@@ -8,12 +8,13 @@ function addToCart(id, title, price) {
 
     if (products.hasOwnProperty(id)) { 
       products[id].quantity += 1;
-      products[id].price += price;
+      products[id].price += price;      
     } else { 
       products[id] = {
         title:title,
         quantity: 1,
-        price: price
+        price: price,
+        id: id
       };
     }
     var productsJson = JSON.stringify(products);
