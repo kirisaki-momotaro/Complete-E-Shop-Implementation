@@ -28,7 +28,7 @@ app.get('/orders_page', (req, res) => {
   res.sendFile(orders_page_path+'/orders.html'); 
 });
 
-// Define a route that responds with 'Hello, World!'
+
 app.get('/products_client', (req, res) => {  
   res.sendFile(client_page_path+'/customer_products_main.html'); 
 });

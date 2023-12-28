@@ -73,9 +73,9 @@ app.post("/orders", async (req, res) => {
   }
 });
 
-// Define a route that responds with 'Hello, World!'
+
 app.get('/', (req, res) => {
-  res.sendFile('${page_path}/products_main.html')
+  res.send("im fine i guess");
 });
 
 // Start the server

@@ -119,17 +119,17 @@ function viewOrders() {
 }
 // Function to handle logout
 function logout() {
-    // Perform logout actions, e.g., clear session, redirect to login page, etc.
-    alert("Logout successful!"); // Replace with actual logout logic
+    // Perform logout actions, e.g., clear session, redirect to login pagge
+    alert("Logout successful!"); 
     sessionStorage.clear();
     window.location.href = "http://localhost:5101/login";
 }
 
-// Function to handle page change
+// Funtion to handle page change
 function changePage() {
     const selectedPage = document.getElementById("pages").value;
-    // Add logic to handle page change, e.g., load content for the selected page
-    alert(`Navigating to ${selectedPage} page...`); // Replace with actual page navigation logic
+    
+    alert(`Navigating to ${selectedPage} page...`); 
 }
 
 // Call the setUserInfo function to display the current user's information

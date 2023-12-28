@@ -15,7 +15,7 @@ function showProducts() {
     console.log(sessionStorage.getItem('username'))
     const productsDisplay = document.getElementById("cart-display");
 
-    // Fetch products from the session storage or any other storage mechanism you are using
+    
     const products = JSON.parse(sessionStorage.getItem('products')) || {};
 
     productsDisplay.innerHTML = ''; // Clear previous content

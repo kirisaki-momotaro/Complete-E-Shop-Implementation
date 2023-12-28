@@ -12,16 +12,16 @@ if(sessionStorage.getItem('role')!="seller"){
 }
 // Function to fetch product details and fill the form
 function fillFormWithProductDetails() {
-    // For demonstration, let's assume you have product details in the following object
+    
     const product_to_change = JSON.parse(sessionStorage.getItem('product_to_change')) || {};
 
-    // Fill the form fields with the old product values
+    // Fill the form fields with the old poduct values
     document.getElementById("title").value = product_to_change.title;
     document.getElementById("price").value = product_to_change.price;
     document.getElementById("quantity").value = product_to_change.quantity;
 }
 
-// Add JavaScript functions for updating product
+
 async function updateProduct() {
     // Fetch values from the form
     const product_to_change = JSON.parse(sessionStorage.getItem('product_to_change')) || {};
@@ -68,5 +68,5 @@ function cancel(){
     window.location.href = "http://localhost:5101/products_seller";
 
 }
-// Call the function to fill the form with product details when the page is loaded
+// Call the function to fill the form with product details hen the page is loaded
 document.addEventListener("DOMContentLoaded", fillFormWithProductDetails);

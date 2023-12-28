@@ -10,7 +10,7 @@ if(sessionStorage.getItem('role')!="seller"){
 
 }
 
-// create_product.js
+
 header('Content-Type: text/javascript');
 async function createProduct(event) {
     event.preventDefault(); // Prevent the form from submitting the traditional way
@@ -53,7 +53,7 @@ async function createProduct(event) {
 
 }
 
-// Additional functions or logic can be added as needed
+
 function goBack(){
     window.location.href = "http://localhost:5101/products_seller";
 }

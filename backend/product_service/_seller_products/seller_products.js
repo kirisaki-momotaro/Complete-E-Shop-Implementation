@@ -1,5 +1,4 @@
-function addToCart(index, title, quantity, price, username) {
-    // Example: Add the selected product to the cart (replace this with your actual logic)
+function addToCart(index, title, quantity, price, username) {   
     console.log(`Added to cart (index ${index}): ${title}`);
     console.log(`Quantity: ${quantity}`);
     console.log(`Price: ${price}`);
@@ -65,7 +64,7 @@ function setUserInfo() {
 
 // Function to handle logout
 function logout() {
-    // Perform logout actions, e.g., clear session, redirect to login page, etc.
+    // Perform logout actions, e.g., clear session, redirect to login page
     alert("Logout successful!"); // Replace with actual logout logic
     sessionStorage.clear();
     window.location.href = "http://localhost:5101/login";
@@ -179,6 +178,6 @@ function editProduct(id, title, quantity, price) {
 
 
 
-// Call the setUserInfo function to display the current user's information
+// Call the setuserInfo function to display the current user's information
 setUserInfo();
 showProducts();
