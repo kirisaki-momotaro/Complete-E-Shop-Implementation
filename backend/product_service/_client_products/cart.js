@@ -1,3 +1,15 @@
+if(sessionStorage.getItem('username')==null){
+    alert("You must be logged in first"); 
+    window.location.href = "http://localhost:5101/login";
+
+}
+if(sessionStorage.getItem('role')!="customer"){
+  alert("You must be a client to access this page"); 
+  sessionStorage.clear();
+  window.location.href = "http://localhost:5101/login";
+
+}
+
 // Function to display products
 function showProducts() {
     console.log(sessionStorage.getItem('username'))
