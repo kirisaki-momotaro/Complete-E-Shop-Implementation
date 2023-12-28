@@ -24,8 +24,7 @@ window.addEventListener("load", async () => {
             ${data.products.map(product => `
               <div class="product">
                 <p>${product.title}</p>           
-                <p>Amount: ${product.amount}</p>
-                <p>Price: ${product.price}</p>
+                <p>Amount: ${product.amount}</p>               
                 <p>Product ID: ${product.id}</p>
               </div>
             `).join('')}
