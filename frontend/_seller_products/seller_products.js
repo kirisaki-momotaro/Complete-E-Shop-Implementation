@@ -9,13 +9,13 @@ window.addEventListener("load", async () => {
 
     if(sessionStorage.getItem('username')==null){//check user is correctly logged is
         alert("You must be logged in first"); 
-        window.location.href = "http://localhost/login";
+        window.location.href = "http://localhost/";
     
     }
     if(sessionStorage.getItem('role')!="seller"){
         alert("You must be a seller to access this page"); 
         sessionStorage.clear();
-        window.location.href = "http://localhost/login";
+        window.location.href = "http://localhost/";
 
     }
     try {//ask server for main page
@@ -67,7 +67,7 @@ function logout() {
     // Perform logout actions, e.g., clear session, redirect to login page
     alert("Logout successful!"); // Replace with actual logout logic
     sessionStorage.clear();
-    window.location.href = "http://localhost/login";
+    window.location.href = "http://localhost/";
 }
 
 function addNewProduct(){

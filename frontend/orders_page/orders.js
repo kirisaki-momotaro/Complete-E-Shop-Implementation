@@ -1,12 +1,12 @@
 if(sessionStorage.getItem('username')==null){//check if correctly logged in
   alert("You must be logged in first"); 
-  window.location.href = "http://localhost/login";
+  window.location.href = "http://localhost/";
 
 }
 if(sessionStorage.getItem('role')!="customer"){
 alert("You must be a client to access this page"); 
 sessionStorage.clear();
-window.location.href = "http://localhost/login";
+window.location.href = "http://localhost/";
 
 }
 window.addEventListener("load", async () => {

@@ -26,13 +26,13 @@ window.addEventListener("load", async () => {
 
     if(sessionStorage.getItem('username')==null){
         alert("You must be logged in first"); 
-        window.location.href = "http://localhost/login";
+        window.location.href = "http://localhost/";
     
     }
     if(sessionStorage.getItem('role')!="customer"){
       alert("You must be a client to access this page"); 
       sessionStorage.clear();
-      window.location.href = "http://localhost/login";
+      window.location.href = "http://localhost/";
 
   }
     try {
@@ -122,7 +122,7 @@ function logout() {
     // Perform logout actions, e.g., clear session, redirect to login pagge
     alert("Logout successful!"); 
     sessionStorage.clear();
-    window.location.href = "http://localhost/login";
+    window.location.href = "http://localhost/";
 }
 
 // Funtion to handle page change

@@ -1,13 +1,13 @@
 
 if(sessionStorage.getItem('username')==null){
   alert("You must be logged in first"); 
-  window.location.href = "http://localhost/login";
+  window.location.href = "http://localhost/";
 
 }
 if(sessionStorage.getItem('role')!="seller"){
   alert("You must be a seller to access this page"); 
   sessionStorage.clear();
-  window.location.href = "http://localhost/login";
+  window.location.href = "http://localhost/";
 
 }
 // Function to fetch product details and fill the form

@@ -45,7 +45,7 @@ app.get('/orders_page', (req, res) => {
       });
 
 
-      app.get('/login', (req, res) => {
+      app.get('/', (req, res) => {
 
         res.sendFile(login_path+'/index.html');
         
