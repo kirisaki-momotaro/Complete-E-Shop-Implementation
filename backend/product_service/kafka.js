@@ -40,8 +40,24 @@ const fetchProductsFromOrderTopic = async()=>{
     await consumer.run({
       eachMessage: async({message}) => {
         const jsonMsg = JSON.parse(message.value)
+        let msg;
         //console.log(jsonMsg)
         const resuly = await handleProducts(jsonMsg)
+        if (resuly==true) {
+          const msg = {
+            id: jsonMsg.id,
+            state: "Confirmed"
+          }
+          sendOrders(msg)
+        }else{
+          const msg = {
+            id: jsonMsg.id,
+            state: "Denied"
+          }
+          sendOrders(msg)
+
+        }
+        
       }
     })
   } catch (error) {
@@ -59,3 +75,7 @@ setTimeout(async()=>{
   }
 
 },30000)
+
+module.exports = {
+  kafkaProducer: sendOrders
+}

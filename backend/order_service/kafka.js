@@ -1,4 +1,5 @@
 const { Kafka, Partitioners } = require('kafkajs')
+const { handleOrderState } = require('./services')
 
 const kafka = new Kafka({
   clientId: 'order-app',
@@ -25,6 +26,39 @@ const sendOrders = async (msg)=>{
 
  await producer.disconnect()
 }
+
+
+const consumer = kafka.consumer({
+  groupId: "orders_group",
+  allowAutoTopicCreation: true,
+})
+const fetchOrderState = async()=>{
+  try {
+    await consumer.connect()
+    await consumer.subscribe({topics:["productsProducer"]})
+
+    await consumer.run({
+      eachMessage: async({message}) => {
+        const jsonMsg = JSON.parse(message.value)
+        //console.log(jsonMsg)
+        const resuly = await handleOrderState(jsonMsg)
+      }
+    })
+  } catch (error) {
+    await consumer.disconnect()
+    console.log(error.message)
+    
+  }
+}
+
+setTimeout(async()=>{
+  try {
+    await fetchOrderState()
+  } catch (error) {
+    console.log(error.message)
+  }
+
+},30000)
 
 module.exports = {
     kafkaProducer: sendOrders
