@@ -1,3 +1,15 @@
+
+if(sessionStorage.getItem('username')==null){
+  alert("You must be logged in first"); 
+  window.location.href = "http://localhost:5101/login";
+
+}
+if(sessionStorage.getItem('role')!="seller"){
+  alert("You must be a seller to access this page"); 
+  sessionStorage.clear();
+  window.location.href = "http://localhost:5101/login";
+
+}
 // Function to fetch product details and fill the form
 function fillFormWithProductDetails() {
     // For demonstration, let's assume you have product details in the following object
