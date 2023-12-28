@@ -13,7 +13,7 @@ if(sessionStorage.getItem('role')!="seller"){
 
 header('Content-Type: text/javascript');
 async function createProduct(event) {
-    event.preventDefault(); // Prevent the form from submitting the traditional way
+    event.preventDefault(); 
 
     // Get form values
     const title = document.getElementById('title').value;

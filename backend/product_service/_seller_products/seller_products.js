@@ -7,7 +7,7 @@ function addToCart(index, title, quantity, price, username) {
 //when browser load run the fetch
 window.addEventListener("load", async () => {
 
-    if(sessionStorage.getItem('username')==null){
+    if(sessionStorage.getItem('username')==null){//check user is correctly logged is
         alert("You must be logged in first"); 
         window.location.href = "http://localhost:5101/login";
     
@@ -18,7 +18,7 @@ window.addEventListener("load", async () => {
         window.location.href = "http://localhost:5101/login";
 
     }
-    try {
+    try {//ask server for main page
      
       const response = await fetch("http://localhost:5101/products/"+sessionStorage.getItem('username'), {
         method: "GET", // *GET, POST, PUT, DELETE, etc.
@@ -31,7 +31,7 @@ window.addEventListener("load", async () => {
       
         const productsDiv = document.getElementById("product-display");
       
-        products.forEach((data,index) => {
+        products.forEach((data,index) => {//fill page with products
           console.log(data.img);
           const context = `
           <div class="product">
@@ -127,7 +127,7 @@ async function deleteProduct(product_id) {
   }
 }
 
-// Function to fetch and display products
+// Function refresh display of products in case of change
 async function refreshProducts() {
   try {
     const response = await fetch(`http://localhost:5101/products/${sessionStorage.getItem('username')}`, {
@@ -180,4 +180,4 @@ function editProduct(id, title, quantity, price) {
 
 // Call the setuserInfo function to display the current user's information
 setUserInfo();
-showProducts();
+showProducts();//load products

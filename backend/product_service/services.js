@@ -1,12 +1,12 @@
 //update database for products amount
 const { connection } = require('./dbConnect')
-
+//when recieve an order request check stock and and send back through kafka aprove or deny 
 const handleProducts = async (orders)=>{
     try {
-        const db = await connection;
+        const db = await connection;//connect to db
 
         //check if products amount is > 0
-        console.log(orders);
+        console.log(orders); //check stock in all order products
         for await (const obj of orders.products){
             console.log(obj)
             const productID=obj.id;
@@ -17,10 +17,10 @@ const handleProducts = async (orders)=>{
             console.log(quantity)
             if((quantity -obj.amount)<0){
                 console.log("not enough supply")
-                return false
+                return false //order is going to be denied
             }
         }
-
+        //substruct quantity of products in case the order is approved
         for await (const obj of orders.products){
             const data = await db.query("SELECT * FROM products WHERE `id`=?",
                                         [obj.id])

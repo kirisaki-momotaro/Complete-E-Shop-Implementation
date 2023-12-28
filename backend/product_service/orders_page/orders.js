@@ -1,4 +1,4 @@
-if(sessionStorage.getItem('username')==null){
+if(sessionStorage.getItem('username')==null){//check if correctly logged in
   alert("You must be logged in first"); 
   window.location.href = "http://localhost:5101/login";
 
@@ -19,7 +19,7 @@ window.addEventListener("load", async () => {
     if (response.ok) {
       const orders = await response.json();
       console.log(orders);
-
+      //display customer orders
       const ordersDiv = document.getElementById("order-display");
 
       orders.forEach(data => {
@@ -48,7 +48,7 @@ window.addEventListener("load", async () => {
     console.log(e);
   }
 });
-
+//when go back button pressed retrun to main customer page
 function goBack() {
   window.location.href = "http://localhost:5101/products_client";
 }

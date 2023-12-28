@@ -4,12 +4,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const registerBtn = document.getElementById('register-btn');
     const goBackBtn = document.getElementById('go-back-btn');
 
-    registerBtn.addEventListener('click', function () {
+    registerBtn.addEventListener('click', function () {//change from login form to register
         loginSection.classList.add('hidden');
         registerSection.classList.remove('hidden');
     });
 
-    goBackBtn.addEventListener('click', function () {
+    goBackBtn.addEventListener('click', function () {//change from register form to go back login
         registerSection.classList.add('hidden');
         loginSection.classList.remove('hidden');
     });
@@ -30,7 +30,7 @@ async function Login(e){
 
     const login_username=document.getElementById('login-username').value;
     const login_password=document.getElementById('login-password').value;
-    try{
+    try{//create login http mesage with entered credential
         console.log(login_username)
         console.log(login_password);
         var myHeaders = new Headers();
@@ -51,13 +51,13 @@ async function Login(e){
         };
 
        const response= await fetch("http://localhost:8080/auth/realms/hmmyzon/protocol/openid-connect/token", requestOptions)
-        if(response.ok)
+        if(response.ok)//user authenticated
         {
             const login=await response.json();
             const token=login.access_token
 
             const decodeToken =await decodeJwt(token);
-            
+            //save user information in session cookie
             sessionStorage.setItem("username", decodeToken.preferred_username);
             sessionStorage.setItem("email", decodeToken.email);
             sessionStorage.setItem("refresh_token", decodeToken.azp);
@@ -67,7 +67,7 @@ async function Login(e){
             }else{
                 sessionStorage.setItem("role", decodeToken.realm_access.roles[0]);
             }
-            
+            //redirect user to appropriate page
             if(sessionStorage.getItem("role")=="customer"){
                 window.location.href = "http://localhost:5101/products_client";
             }else{
@@ -91,7 +91,7 @@ async function Login(e){
     return false
 }
 
-async function Register(e){
+async function Register(e){//register new user
 
     e.preventDefault()
     const getUsername=document.getElementById('new-username').value;
@@ -109,7 +109,7 @@ async function Register(e){
         urlencoded.append("client_id", "admin-cli");
         urlencoded.append("client_secret", "yAE56YCPNKU2YWmE0MpnCr616Hb0ukee");
 
-        var requestOptions = {
+        var requestOptions = {//formulate register http request
         method: 'POST',
         headers: myHeaders,
         body: urlencoded,

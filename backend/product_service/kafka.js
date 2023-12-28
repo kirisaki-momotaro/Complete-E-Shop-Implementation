@@ -1,16 +1,16 @@
 const { Kafka, Partitioners } = require('kafkajs')
 const { handleProducts } = require('./services')
 
-const kafka = new Kafka({
+const kafka = new Kafka({//initiate kafka connection
   clientId: 'products-app',
-  brokers: ['kafka:19092'],
+  brokers: ['kafka:19092'],//door kafka listens ti inside docker container
   retry: {
     initialRetryTime: 2000,
     retries: 5
   }
 })
 
-const producer = kafka.producer({
+const producer = kafka.producer({//create producer
     allowAutoTopicCreation: true,
     createPartitioner: Partitioners.LegacyPartitioner
 })
@@ -27,7 +27,7 @@ const sendOrders = async (msg)=>{
  await producer.disconnect()
 }
 
-const consumer = kafka.consumer({
+const consumer = kafka.consumer({//create consumer to order info
     groupId: "products_group",
     allowAutoTopicCreation: true,
 })
@@ -43,13 +43,13 @@ const fetchProductsFromOrderTopic = async()=>{
         let msg;
         //console.log(jsonMsg)
         const resuly = await handleProducts(jsonMsg)
-        if (resuly==true) {
+        if (resuly==true) {//confirm order if handle products returned true
           const msg = {
             id: jsonMsg.id,
             state: "Confirmed"
           }
           sendOrders(msg)
-        }else{
+        }else{//deny order if handle products returned false
           const msg = {
             id: jsonMsg.id,
             state: "Denied"
@@ -67,9 +67,9 @@ const fetchProductsFromOrderTopic = async()=>{
   }
 }
 
-setTimeout(async()=>{
+setTimeout(async()=>{//wait 30 sec for required containers to start
   try {
-    await fetchProductsFromOrderTopic()
+    await fetchProductsFromOrderTopic()//start listening to topic
   } catch (error) {
     console.log(error.message)
   }
