@@ -28,13 +28,13 @@ app.get("/orders", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-app.get("/orders/:id", async (req, res) => {
+app.get("/orders/:user", async (req, res) => {
   try {
-    const id = req.params.id;
+    const user = req.params.user;
     //get db
     const db = await connection;
 
-    const results = await db.query("SELECT * FROM orders WHERE `id` = ?", [id]);
+    const results = await db.query("SELECT * FROM orders WHERE `user` = ?", [user]);
     res.send(results[0][0]);
   } catch (error) {
     console.error("Error fetching orders:", error);
@@ -51,8 +51,8 @@ app.post("/orders", async (req, res) => {
     //store to database
     // const jsonDataString = JSON.stringify(order);
     const results = await db.execute(
-      "INSERT INTO orders (products, status, total_price) VALUES (?, ?, ?)",
-      [order.products, order.status, order.total_price]
+      "INSERT INTO orders (products, status, total_price, user) VALUES (?, ?, ?, ?)",
+      [order.products, order.status, order.total_price, order.user]
     );
 
     //send to kafka

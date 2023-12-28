@@ -1,5 +1,6 @@
 // Function to display products
 function showProducts() {
+    console.log(sessionStorage.getItem('username'))
     const productsDisplay = document.getElementById("cart-display");
 
     // Fetch products from the session storage or any other storage mechanism you are using
@@ -24,12 +25,13 @@ function goBack(){
     window.location.href = "http://localhost:5101/products_client";
 }
 async function submitOrder(){
-
+    var user=sessionStorage.getItem('username')
+    console.log(user);
     const order = {
         products: [],
         total_price: 0,
         status: "Pending",
-        user: sessionStorage.getItem('username')
+        user: user
       };
 
    
@@ -45,6 +47,7 @@ async function submitOrder(){
         order.products.push(productObject);
       }
       order.total_price = totalPrice;
+      order.user=user;
 
       console.log(order);
 
