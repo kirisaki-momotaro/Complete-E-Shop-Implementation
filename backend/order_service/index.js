@@ -10,7 +10,10 @@ app.use(express.urlencoded({extended: true}));
 
 
 const path= require('path');
+
 const page_path =__dirname
+
+
 
 app.get("/health",(req, res) => {
   res.send("im fine i guess");
@@ -35,7 +38,7 @@ app.get("/orders/:user", async (req, res) => {
     const db = await connection;
 
     const results = await db.query("SELECT * FROM orders WHERE `user` = ?", [user]);
-    res.send(results[0][0]);
+    res.send(results[0]);
   } catch (error) {
     console.error("Error fetching orders:", error);
     res.status(500).json({ error: "Internal Server Error" });

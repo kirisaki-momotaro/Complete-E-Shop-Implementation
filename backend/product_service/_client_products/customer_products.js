@@ -113,6 +113,10 @@ function setUserInfo() {
 function viewCart() {
   window.location.href = "http://localhost:5101/cart";
 }
+
+function viewOrders() {
+  window.location.href = "http://localhost:5101/orders_page";
+}
 // Function to handle logout
 function logout() {
     // Perform logout actions, e.g., clear session, redirect to login page, etc.
