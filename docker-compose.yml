@@ -107,7 +107,26 @@ services:
     depends_on:
       - products_db
  
+  
+  frontend-service:
+    build:
+      context: ./frontend
+    container_name: frontend_service
+    command: npm start
+    restart: always
+    ports:
+      - "80:80"
+    environment:
+      - PORT=80
+    networks:
+      - products
+      - orders
+    depends_on:
+      - product-service
+      - order-service      
+      
  
+
   products_db:
     container_name: products_db
     image: mysql
