@@ -1,1 +1,5 @@
-# cloud-project-2023
+# Complete-E-Shop-Implementation
+
+## To run use ```docker compose up```
+
+
